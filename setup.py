@@ -47,9 +47,9 @@ def install_pyml():
     pip('install numpy')
 
     pyml_tarball = (
-        'http://09cce49df173f6f6e61f-fd6930021b51685920a6fa76529ee321'
-        '.r45.cf2.rackcdn.com/PyML-0.7.9.tar.gz')
-    pyml_srcidr = 'PyML-0.7.9'
+        'http://downloads.sourceforge.net/project/pyml/PyML-0.7.13.3.tar.gz'
+        '?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpyml%2F&ts=1417359254&use_mirror=netcologne')
+    pyml_srcidr = 'PyML-0.7.13.3'
 
     # see if PyML tarball needs to be fetched:
     if not dir_exists(pyml_srcidr):
