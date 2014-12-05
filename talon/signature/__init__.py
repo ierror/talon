@@ -38,11 +38,11 @@ EXTRACTOR_DATA = os.path.join(DATA_DIR, 'train.data')
 def initialize():
     try:
         # redirect output
-        so, sys.stdout = sys.stdout, StringIO()
+        #so, sys.stdout = sys.stdout, StringIO()
 
         extraction.EXTRACTOR = classifier.load(EXTRACTOR_FILENAME,
                                                EXTRACTOR_DATA)
-        sys.stdout = so
+        #sys.stdout = so
     except Exception, e:
         raise Exception(
             "Failed initializing signature parsing with classifiers", e)

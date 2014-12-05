@@ -110,7 +110,7 @@ def test_mark_lines():
     with patch.object(bruteforce, 'SIGNATURE_MAX_LINES', 2):
         # we analyse the 2nd line as well though it's the 6th line
         # (starting from the bottom) because we don't count empty line
-        eq_('ttset',
+        eq_(bytearray(b'ttses'),
             e._mark_lines(['Bob Smith',
                           'Bob Smith',
                           'Bob Smith',
@@ -120,7 +120,7 @@ def test_mark_lines():
     with patch.object(bruteforce, 'SIGNATURE_MAX_LINES', 3):
         # we don't analyse the 1st line because
         # signature cant start from the 1st line
-        eq_('tset',
+        eq_(bytearray(b'tses'),
             e._mark_lines(['Bob Smith',
                           'Bob Smith',
                           '',
