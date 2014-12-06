@@ -8,7 +8,7 @@ body belongs to the signature.
 import os
 import sys
 
-from PyML import SparseDataSet, SVM
+#from PyML import SparseDataSet, SVM
 
 
 def init():

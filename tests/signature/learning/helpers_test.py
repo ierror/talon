@@ -177,7 +177,7 @@ def test_extract_names():
         # check that extracted names could be compiled
         try:
             re.compile("|".join(extracted_names))
-        except Exception, e:
+        except Exception as e:
             ok_(False, ("Failed to compile extracted names {}"
                         "\n\nReason: {}").format(extracted_names, e))
         if expected_names:

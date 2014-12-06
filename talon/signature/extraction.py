@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import os
 import logging
 
 import regex as re
-from PyML import SparseDataSet
+#from PyML import SparseDataSet    # PY3 MIGRATION
 
-from talon.constants import RE_DELIMITER
-from talon.signature.constants import (SIGNATURE_MAX_LINES,
-                                       TOO_LONG_SIGNATURE_LINE)
 from talon.signature.learning.featurespace import features, build_pattern
 from talon.utils import get_delimiter
 from talon.signature.bruteforce import get_signature_candidate
@@ -36,8 +32,8 @@ RE_REVERSE_SIGNATURE = re.compile(r'''
 
 def is_signature_line(line, sender, classifier):
     '''Checks if the line belongs to signature. Returns True or False.'''
-    data = SparseDataSet([build_pattern(line, features(sender))])
-    return classifier.decisionFunc(data, 0) > 0
+    #data = SparseDataSet([build_pattern(line, features(sender))])  # PY3 MIGRATION
+    #return classifier.decisionFunc(data, 0) > 0  # PY3 MIGRATION
 
 
 def extract(body, sender):
@@ -61,7 +57,7 @@ def extract(body, sender):
                 text = delimiter.join(text)
                 if text.strip():
                     return (text, delimiter.join(signature))
-    except Exception, e:
+    except Exception as e:
         log.exception('ERROR when extracting signature with classifiers')
 
     return (body, None)
@@ -84,7 +80,7 @@ def _mark_lines(lines, sender):
     candidate = get_signature_candidate(lines)
 
     # at first consider everything to be text no signature
-    markers = bytearray('t'*len(lines))
+    markers = bytearray('t' * len(lines))
 
     # mark lines starting from bottom up
     # mark only lines that belong to candidate

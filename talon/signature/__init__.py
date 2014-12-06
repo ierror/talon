@@ -22,11 +22,15 @@ trained against, don't forget to regenerate:
 
 import os
 import sys
-from cStringIO import StringIO
+
+try:
+    from io import StringIO
+except ImportError:
+    from cStringIO import StringIO
 
 from . import extraction
-from . extraction import extract
-from . learning import classifier
+from .extraction import extract
+from .learning import classifier
 
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
@@ -43,6 +47,6 @@ def initialize():
         extraction.EXTRACTOR = classifier.load(EXTRACTOR_FILENAME,
                                                EXTRACTOR_DATA)
         sys.stdout = so
-    except Exception, e:
+    except Exception as e:
         raise Exception(
             "Failed initializing signature parsing with classifiers", e)

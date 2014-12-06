@@ -7,7 +7,7 @@ import os
 from flanker import mime
 
 from talon.signature import bruteforce
-
+print 'hallo'
 
 def test_empty_body():
     eq_(('', None), bruteforce.extract_signature(''))
