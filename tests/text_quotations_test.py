@@ -98,22 +98,24 @@ bla-bla - bla"""
     eq_(reply, quotations.extract_from_plain(msg_body))
 
 
-def test_pattern_original_message():
-    msg_body = """Test reply
+def _check_pattern_original_message(original_message_indicator):
+    msg_body = u"""Test reply
 
------Original Message-----
-
-Test"""
-
-    eq_("Test reply", quotations.extract_from_plain(msg_body))
-
-    msg_body = """Test reply
-
- -----Original Message-----
+-----{}-----
 
 Test"""
+    eq_('Test reply', quotations.extract_from_plain(msg_body.format(unicode(original_message_indicator))))
 
-    eq_("Test reply", quotations.extract_from_plain(msg_body))
+def test_english_original_message():
+    _check_pattern_original_message('Original Message')
+    _check_pattern_original_message('Reply Message')
+
+def test_german_original_message():
+    _check_pattern_original_message(u'Ursprüngliche Nachricht')
+    _check_pattern_original_message('Antwort Nachricht')
+
+def test_danish_original_message():
+    _check_pattern_original_message('Oprindelig meddelelse')
 
 
 def test_reply_after_quotations():
@@ -208,8 +210,8 @@ def test_pattern_date_email_with_unicode():
     eq_("Replying ok", quotations.extract_from_plain(msg_body))
 
 
-def test_pattern_from_block():
-    msg_body = """Allo! Follow up MIME!
+def test_english_from_block():
+    eq_('Allo! Follow up MIME!', quotations.extract_from_plain("""Allo! Follow up MIME!
 
 From: somebody@example.com
 Sent: March-19-11 5:42 PM
@@ -217,8 +219,31 @@ To: Somebody
 Subject: The manager has commented on your Loop
 
 Blah-blah-blah
-"""
-    eq_("Allo! Follow up MIME!", quotations.extract_from_plain(msg_body))
+"""))
+
+def test_german_from_block():
+    eq_('Allo! Follow up MIME!', quotations.extract_from_plain(
+    """Allo! Follow up MIME!
+
+Von: somebody@example.com
+Gesendet: Dienstag, 25. November 2014 14:59
+An: Somebody
+Betreff: The manager has commented on your Loop
+
+Blah-blah-blah
+"""))
+
+def test_danish_from_block():
+    eq_('Allo! Follow up MIME!', quotations.extract_from_plain(
+    """Allo! Follow up MIME!
+
+Fra: somebody@example.com
+Sendt: 19. march 2011 12:10
+Til: Somebody
+Emne: The manager has commented on your Loop
+
+Blah-blah-blah
+"""))
 
 
 def test_quotation_marker_false_positive():
